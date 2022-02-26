@@ -8,10 +8,10 @@
     tools:context=".MainActivity">
 
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/idGraphView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,10 +1,16 @@
 package com.blogspot.rajbtc.graphfirebase;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -17,7 +23,8 @@ import java.util.Queue;
 
 public class MainActivity extends AppCompatActivity {
     GraphView graphView;
-    PriorityQueue<Double> queue = new PriorityQueue<Double>();
+    ArrayList<Double> arrayList = new ArrayList<>();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,44 +32,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         graphView = findViewById(R.id.idGraphView);
 
-        for(int i=0;i<10;i++)
-            queue.add(Double.parseDouble(i+""));
 
+        firebaseDatabase.getReference("Biofloc").child("Temp").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                double val = snapshot.getValue(Double.class);
 
+                arrayList.add(val);
 
+                checkChange();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
-
-    }
-    double p=1;
-
-    public void btnClick(View view) {
-
-        if(queue.size()>8)
-            queue.remove();
-        queue.add(p++);
-
-        checkChange();
-    }
-
-
-    void checkChange(){
-
-
-        Object[] arr=queue.toArray();
-
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[]{
-                new DataPoint(0, (Double) arr[0]),
-                new DataPoint(1,  (Double) arr[1]),
-                new DataPoint(2,  (Double) arr[2]),
-                new DataPoint(3,  (Double) arr[3]),
-                new DataPoint(4,  (Double) arr[4]),
-                new DataPoint(5,  (Double) arr[5]),
-                new DataPoint(6,  (Double) arr[6]),
-                new DataPoint(7,  (Double) arr[7]),
-                new DataPoint(8,  (Double) arr[8])
+            }
         });
+
+
+    }
+
+
+    void checkChange() {
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            DataPoint point = new DataPoint(i, arrayList.get(i));
+            series.appendData(point, true, arrayList.size());
+
+        }
+
+
         graphView.removeAllSeries();
         graphView.setTitle("My Graph View");
         graphView.setTitleColor(R.color.purple_200);

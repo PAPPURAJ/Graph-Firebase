@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "674072621719",
+    "firebase_url": "https://biofloc-161c8-default-rtdb.firebaseio.com",
+    "project_id": "biofloc-161c8",
+    "storage_bucket": "biofloc-161c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674072621719:android:b0aae23889c495dada6fd2",
+        "android_client_info": {
+          "package_name": "com.blogspot.rajbtc.graphfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674072621719-l8uq9m9ai3855k9a30pa57lfgkjf6ds9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzUxkbEDRbuui0P77xyyn16capEHTFHl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674072621719-l8uq9m9ai3855k9a30pa57lfgkjf6ds9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
